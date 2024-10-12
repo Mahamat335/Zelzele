@@ -13,7 +13,7 @@ namespace Zelzele
         private static readonly object _instanceLock = new object();
         private static bool _quitting = false;
 
-        public static T instance
+        public static T Instance
         {
             get
             {

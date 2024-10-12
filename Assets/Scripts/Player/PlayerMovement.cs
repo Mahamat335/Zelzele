@@ -4,17 +4,17 @@ namespace Zelzele.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        public float speed = 10f;
-        public float mouseSensitivity = 100f;
-        public Transform playerBody;
+        [SerializeField] private float _speed = 10f;
+        [SerializeField] private float _mouseSensitivity = 100f;
+        [SerializeField] private Transform _playerBody;
 
-        private Rigidbody rb;
-        private float xRotation = 0f;
+        private Rigidbody _rb;
+        private float _xRotation = 0f;
 
         void Start()
         {
             // Rigidbody bileşenini al
-            rb = GetComponent<Rigidbody>();
+            _rb = GetComponent<Rigidbody>();
 
             // Fare imlecini gizle ve sabitle
             Cursor.lockState = CursorLockMode.Locked;
@@ -23,13 +23,13 @@ namespace Zelzele.Player
         void Update()
         {
             // Fare hareketi
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
 
-            xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            _xRotation -= mouseY;
+            _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
-            playerBody.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            _playerBody.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
             transform.Rotate(Vector3.up * mouseX);
         }
 
@@ -42,7 +42,7 @@ namespace Zelzele.Player
             Vector3 move = transform.right * x + transform.forward * z;
 
             // Rigidbody'yi hareket ettir
-            rb.MovePosition(rb.position + move * speed * Time.fixedDeltaTime);
+            _rb.MovePosition(_rb.position + move * _speed * Time.fixedDeltaTime);
         }
     }
 }
