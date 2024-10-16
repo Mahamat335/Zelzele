@@ -1,11 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Zelzele.Systems.StatSystem
 {
-    public class Stats : Singleton<Stats>
+    public class StatManager : Singleton<StatManager>
     {
         public Dictionary<StatName, Stat> AllStats;
         public Dictionary<StatName, List<Modifier>> AllModifiers;

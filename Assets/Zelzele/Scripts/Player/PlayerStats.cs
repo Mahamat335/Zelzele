@@ -7,7 +7,7 @@ namespace Zelzele.Player
     {
         void Start()
         {
-            foreach (StatName statName in Stats.Instance.AllStats.Keys)
+            foreach (StatName statName in StatManager.Instance.AllStats.Keys)
             {
                 Debug.Log(statName);
             }
