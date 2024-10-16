@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine.UI;
 using Zelzele.Systems.StatSystem;
+using System.IO;
+using UnityEngine;
+
 namespace Zelzele.Systems.DialogueSystem
 {
     public class DialogueManager : Singleton<DialogueManager>
@@ -8,19 +11,37 @@ namespace Zelzele.Systems.DialogueSystem
         public DialogueSO CurrentDialogue;
         public TMP_Text NpcText;
         public Button[] ChoiceButtons;
+        public Language Language;
 
         private DialogueNode _currentNode;
+        private const string _languageScriptableObjectsFolderPath = "Scriptable Objects/Dialogue System/";
+        private const string _languageSuffix = "_DialogueSO";
 
         void Start()
         {
+            Debug.Log(_languageScriptableObjectsFolderPath + Language.ToString());
+            CurrentDialogue = Resources.Load<DialogueSO>(_languageScriptableObjectsFolderPath + Language.ToString() + _languageSuffix);
             StartDialogue(CurrentDialogue);
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (CurrentDialogue is not null && CurrentDialogue.Language != Language)
+            {
+                CurrentDialogue = Resources.Load<DialogueSO>(_languageScriptableObjectsFolderPath + Language.ToString() + _languageSuffix);
+            }
+        }
+#endif
 
         public void StartDialogue(DialogueSO dialogue)
         {
             CurrentDialogue = dialogue;
             _currentNode = dialogue.StartNode;
-            DisplayNode();
+            if (NpcText is not null)
+            {
+                DisplayNode();
+            }
         }
 
         void DisplayNode()

@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4dc376fcd89609468afef744a5f7e0f, type: 3}
-  m_Name: English_DialogueSO
+  m_Name: Turkish_DialogueSO
   m_EditorClassIdentifier: 
   StartNode:
-    NpcText: Hi
+    NpcText: Selam
     Choices:
-    - ChoiceText: Assalamu Alaikum
+    - ChoiceText: Aleykum Selam
       NextNode:
         NpcText: 
         Choices: []
       Requirement:
         StatName: 0
         MinValue: 0
-    - ChoiceText: Helloooooooooo
+    - ChoiceText: Selam canim ben amcanim
       NextNode:
         NpcText: 
         Choices: []
       Requirement:
         StatName: 0
         MinValue: 0
-  Language: 0
+  Language: 1
