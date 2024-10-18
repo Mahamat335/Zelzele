@@ -29,7 +29,7 @@ namespace Zelzele.Systems.DialogueSystem
     [System.Serializable]
     public class StatRequirement
     {
-        public StatName StatName;
+        public string StatName;
         public int MinValue;
     }
 

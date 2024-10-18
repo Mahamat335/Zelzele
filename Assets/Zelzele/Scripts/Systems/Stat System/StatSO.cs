@@ -5,7 +5,7 @@ namespace Zelzele.Systems.StatSystem
     [CreateAssetMenu(fileName = "StatSO", menuName = "Scriptable Objects/Stat System/StatSO")]
     public class StatSO : ScriptableObject
     {
-        [SerializeField] public StatName StatName;
+        public string StatName;
         [SerializeField] private string _statDescription;
         [SerializeField] private float _defaultValue;
         [SerializeField] private float _maxValue;

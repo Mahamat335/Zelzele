@@ -7,13 +7,13 @@ namespace Zelzele.Systems.StatSystem
     public class Modifier
     {
         [field: SerializeField]
-        public ModifierName ModifierName { get; set; }
+        public string ModifierName { get; set; }
         [field: SerializeField]
         public string ModifierDescription { get; set; }
         [field: SerializeField]
         public float ModifierValue { get; set; }
 
-        public Modifier(ModifierName modifierName, string modifierDescription, float modifierValue)
+        public Modifier(string modifierName, string modifierDescription, float modifierValue)
         {
             ModifierName = modifierName;
             ModifierDescription = modifierDescription;

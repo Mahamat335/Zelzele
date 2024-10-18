@@ -44,3 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4ec8b6fd04f234289fbfd8fc65d553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  i: 0
+  Deneme:
+    serializableDictionaryItems:
+    - key: asdasd
+      value: 0
+    - key: dsds
+      value: 2

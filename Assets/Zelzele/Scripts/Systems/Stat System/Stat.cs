@@ -8,7 +8,7 @@ namespace Zelzele.Systems.StatSystem
     public class Stat
     {
         [field: SerializeField]
-        public StatName StatName { get; set; }
+        public string StatName { get; set; }
         [field: SerializeField]
         public string StatDescription { get; set; }
         [field: SerializeField]
@@ -30,7 +30,7 @@ namespace Zelzele.Systems.StatSystem
             }
         }
 
-        public Stat(StatName statName, string statDescription, float baseValue, float maxValue, float bonusValue)
+        public Stat(string statName, string statDescription, float baseValue, float maxValue, float bonusValue)
         {
             StatName = statName;
             StatDescription = statDescription;
@@ -39,7 +39,7 @@ namespace Zelzele.Systems.StatSystem
             Modifiers = new List<Modifier>();
         }
 
-        public Stat(StatName statName, string statDescription, float defaultValue, float maxValue)
+        public Stat(string statName, string statDescription, float defaultValue, float maxValue)
         {
             StatName = statName;
             StatDescription = statDescription;

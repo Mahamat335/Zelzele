@@ -6,8 +6,8 @@ namespace Zelzele.Systems.StatSystem
 {
     public class StatManager : Singleton<StatManager>
     {
-        public Dictionary<StatName, Stat> AllStats;
-        public Dictionary<StatName, List<Modifier>> AllModifiers;
+        public Dictionary<string, Stat> AllStats;
+        public Dictionary<string, List<Modifier>> AllModifiers;
         private const string _statScriptableObjectsFolderPath = "Scriptable Objects/Stat System/Stats";
         private const string _modifierScriptableObjectsFolderPath = "Scriptable Objects/Stat System/Modifiers";
         private string _saveFilePath;
@@ -24,7 +24,7 @@ namespace Zelzele.Systems.StatSystem
         private void LoadStatsFromResources()
         {
             StatSO[] statObjects = Resources.LoadAll<StatSO>(_statScriptableObjectsFolderPath);
-            AllStats = new Dictionary<StatName, Stat>();
+            AllStats = new Dictionary<string, Stat>();
 
             foreach (StatSO statObject in statObjects)
             {
@@ -36,7 +36,7 @@ namespace Zelzele.Systems.StatSystem
         {
             ModifierSO[] modifierObjects = Resources.LoadAll<ModifierSO>(_modifierScriptableObjectsFolderPath);
 
-            AllModifiers = new Dictionary<StatName, List<Modifier>>();
+            AllModifiers = new Dictionary<string, List<Modifier>>();
             for (int i = 0; i < modifierObjects.Length; i++)
             {
                 foreach (StatDictionary affectedStat in modifierObjects[i].AffectedStats)
@@ -55,7 +55,7 @@ namespace Zelzele.Systems.StatSystem
 
         public void SaveStats()
         {
-            Dictionary<StatName, SaveableStatData> statData = new Dictionary<StatName, SaveableStatData>();
+            Dictionary<string, SaveableStatData> statData = new Dictionary<string, SaveableStatData>();
 
             foreach (Stat stat in AllStats.Values)
             {
@@ -67,7 +67,7 @@ namespace Zelzele.Systems.StatSystem
                 statData.Add(stat.StatName, data);
             }
 
-            string json = JsonUtility.ToJson(new Serialization<StatName, SaveableStatData>(statData));
+            string json = JsonUtility.ToJson(new Serialization<string, SaveableStatData>(statData));
             File.WriteAllText(_saveFilePath, json);
         }
 
@@ -76,7 +76,7 @@ namespace Zelzele.Systems.StatSystem
             if (File.Exists(_saveFilePath))
             {
                 string json = File.ReadAllText(_saveFilePath);
-                Dictionary<StatName, SaveableStatData> statData = JsonUtility.FromJson<Serialization<StatName, SaveableStatData>>(json).ToDictionary();
+                Dictionary<string, SaveableStatData> statData = JsonUtility.FromJson<Serialization<string, SaveableStatData>>(json).ToDictionary();
 
                 foreach (Stat stat in AllStats.Values)
                 {
@@ -92,7 +92,7 @@ namespace Zelzele.Systems.StatSystem
         }
         #endregion
 
-        public bool AddModifierToStat(StatName statName, ModifierName modifierName)
+        public bool AddModifierToStat(string statName, string modifierName)
         {
             if (AllModifiers.ContainsKey(statName))
             {
