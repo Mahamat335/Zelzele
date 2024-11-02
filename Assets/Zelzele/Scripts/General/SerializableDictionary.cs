@@ -19,7 +19,6 @@ namespace Zelzele
             }
             return resultDictionary;
         }
-
     }
 
     [Serializable]

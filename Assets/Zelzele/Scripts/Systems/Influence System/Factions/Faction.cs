@@ -15,34 +15,13 @@ namespace Zelzele
         public List<Region> expansionRegions; // Yayılmak istediği bölgeler.
         public SerializableDictionary<Faction, int> relationships; // Diğer factionlarla ilişki seviyesi (-100 ile 100 arasında).
 
-        /* 
-                public Faction(string name, int aggression)
-                {
-                    _factionName = name;
-                    _aggressionLevel = aggression;
-                    influence = 0;
-                    controlledRegions = new List<Region>();
-                    expansionRegions = new List<Region>();
-                    relationships = new Dictionary<Faction, int>();
-                }
-
-                public void ModifyRelationship(Faction otherFaction, int amount)
-                {
-                    if (relationships.ContainsKey(otherFaction))
-                    {
-                        relationships[otherFaction] += amount;
-                        relationships[otherFaction] = Mathf.Clamp(relationships[otherFaction], -100, 100);
-                    }
-                    else
-                    {
-                        relationships.Add(otherFaction, amount);
-                    }
-                }
-
-                public void AddRegion(Region region)
-                {
-                    if (!controlledRegions.Contains(region))
-                        controlledRegions.Add(region);
-                } */
+        public Faction(string name, int aggression)
+        {
+            _factionName = name;
+            _aggressionLevel = aggression;
+            influence = 0;
+            controlledRegions = new List<Region>();
+            expansionRegions = new List<Region>();
+        }
     }
 }
