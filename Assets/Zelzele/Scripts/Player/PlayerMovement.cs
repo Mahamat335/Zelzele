@@ -7,16 +7,16 @@ namespace Zelzele.Player
         [SerializeField] private float _speed = 10f;
         [SerializeField] private float _mouseSensitivity = 100f;
         [SerializeField] private Transform _playerBody;
+        [SerializeField] private float _jumpForce = 5f;
+        [SerializeField] private LayerMask _groundLayer; // Yüzey katmanını belirlemek için
 
         private Rigidbody _rb;
         private float _xRotation = 0f;
+        private bool _isGrounded;
 
         void Start()
         {
-            // Rigidbody bileşenini al
             _rb = GetComponent<Rigidbody>();
-
-            // Fare imlecini gizle ve sabitle
             Cursor.lockState = CursorLockMode.Locked;
         }
 
@@ -31,6 +31,12 @@ namespace Zelzele.Player
 
             _playerBody.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
             transform.Rotate(Vector3.up * mouseX);
+
+            // Zıplama girişi
+            if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+            {
+                _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            }
         }
 
         void FixedUpdate()
@@ -41,8 +47,10 @@ namespace Zelzele.Player
 
             Vector3 move = transform.right * x + transform.forward * z;
 
-            // Rigidbody'yi hareket ettir
             _rb.MovePosition(_rb.position + move * _speed * Time.fixedDeltaTime);
+
+            // Yerde olup olmadığını kontrol et
+            _isGrounded = Physics.CheckSphere(transform.position, 1.0f, _groundLayer);
         }
     }
 }
