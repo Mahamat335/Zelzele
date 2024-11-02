@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Zelzele.Systems.DialogueSystem
@@ -22,7 +23,7 @@ namespace Zelzele.Systems.DialogueSystem
     {
         public string ChoiceText;
         public int NextNodeId;
-        public StatRequirement Requirement;
+        public List<StatRequirement> Requirements;
     }
 
     [System.Serializable]

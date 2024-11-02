@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d19daade3014c42a85fd0aee8dbaec, type: 3}
   m_Name: INT
   m_EditorClassIdentifier: 
-  _statName: Intelligence
+  StatName: 3
   _statDescription: Mega Mind go brr
   _defaultValue: 0
   _maxValue: 10

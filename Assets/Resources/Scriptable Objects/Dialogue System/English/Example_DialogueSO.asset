@@ -20,16 +20,31 @@ MonoBehaviour:
       NextNodeId: 1
       Requirement:
         StatName: 0
-        MinValue: 1
+        MinValue: 0
     - ChoiceText: Hellooooooooo
       NextNodeId: 2
       Requirement:
         StatName: 0
         MinValue: 0
+    - ChoiceText: OK
+      NextNodeId: -1
+      Requirement:
+        StatName: 0
+        MinValue: 0
   - Id: 1
     NpcText: Nani
-    Choices: []
+    Choices:
+    - ChoiceText: OK
+      NextNodeId: -1
+      Requirement:
+        StatName: 
+        MinValue: 0
   - Id: 2
     NpcText: Celloooooooooo
-    Choices: []
+    Choices:
+    - ChoiceText: OK
+      NextNodeId: -1
+      Requirement:
+        StatName: 
+        MinValue: 0
   Language: 0

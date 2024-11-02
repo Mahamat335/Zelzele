@@ -13,7 +13,6 @@ namespace Zelzele.Player
         private Rigidbody _rb;
         private float _xRotation = 0f;
         private bool _isGrounded;
-
         void Start()
         {
             _rb = GetComponent<Rigidbody>();
@@ -22,6 +21,10 @@ namespace Zelzele.Player
 
         void Update()
         {
+            if (PlayerManager.Instance.IsMovementLocked)
+            {
+                return;
+            }
             // Fare hareketi
             float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
@@ -41,6 +44,10 @@ namespace Zelzele.Player
 
         void FixedUpdate()
         {
+            if (PlayerManager.Instance.IsMovementLocked)
+            {
+                return;
+            }
             // Hareket girişleri
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");

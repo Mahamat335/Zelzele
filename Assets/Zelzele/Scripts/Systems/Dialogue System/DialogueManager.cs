@@ -2,12 +2,15 @@ using TMPro;
 using UnityEngine.UI;
 using Zelzele.Systems.StatSystem;
 using Zelzele.Systems.EventSystem;
+using Zelzele.Player;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Zelzele.Systems.DialogueSystem
 {
     public class DialogueManager : Singleton<DialogueManager>
     {
+        [SerializeField] private GameObject _dialoguePanel;
         public TMP_Text NpcText;
         public Button[] ChoiceButtons;
         public Language Language;
@@ -27,13 +30,6 @@ namespace Zelzele.Systems.DialogueSystem
         {
             EventManager.Instance.CurrentDialogueChanged.RemoveListener(UpdateCurrentDialogue);
             EventManager.Instance.LanguageChanged.RemoveListener(UpdateLanguage);
-        }
-
-        void Start()
-        {
-            CurrentDialogueName = "Example";
-            UpdateCurrentDialogue(CurrentDialogueName);
-            StartDialogue(_currentDialogue);
         }
 
 #if UNITY_EDITOR
@@ -75,10 +71,10 @@ namespace Zelzele.Systems.DialogueSystem
             }
         }
 
-        public void StartDialogue(DialogueSO dialogue)
+        public void StartDialogue(DialogueSO dialogue, int nodeId = 0)
         {
             _currentDialogue = dialogue;
-            ChangeNode(0);
+            ChangeNode(nodeId);
             if (NpcText is not null)
             {
                 DisplayNode();
@@ -87,14 +83,20 @@ namespace Zelzele.Systems.DialogueSystem
 
         void DisplayNode()
         {
+            Cursor.lockState = CursorLockMode.None;
+            PlayerManager.Instance.IsMovementLocked = true;
+            _dialoguePanel.SetActive(true);
             NpcText.text = _currentNode.NpcText;
-            for (int i = 0; i < _currentNode.Choices.Length; i++)
+            for (int i = 0; i < ChoiceButtons.Length; i++)
             {
-                if (ChoiceButtons.Length <= i)//TODO fix this
-                    return;
+                if (_currentNode.Choices.Length <= i)
+                {
+                    ChoiceButtons[i].gameObject.SetActive(false);
+                    continue;
+                }
 
-                var choice = _currentNode.Choices[i];
-                if (CheckRequirements(choice.Requirement))
+                DialogueChoice choice = _currentNode.Choices[i];
+                if (CheckRequirements(choice.Requirements))
                 {
                     ChoiceButtons[i].GetComponentInChildren<TMP_Text>().text = choice.ChoiceText;
                     ChoiceButtons[i].gameObject.SetActive(true);
@@ -109,23 +111,40 @@ namespace Zelzele.Systems.DialogueSystem
             }
         }
 
-        bool CheckRequirements(StatRequirement statRequirement)
+        public void CloseDialogue()
         {
-            if (statRequirement == null)
+            Cursor.lockState = CursorLockMode.Locked;
+            PlayerManager.Instance.IsMovementLocked = false;
+            _currentDialogue = null;
+            _dialoguePanel.SetActive(false);
+        }
+
+        bool CheckRequirements(List<StatRequirement> statRequirements)
+        {
+            if (statRequirements.Count == 0)
             {
                 return true;
             }
 
-            if (statRequirement.MinValue <= StatManager.Instance.AllStats[statRequirement.StatName].CalculatedValue)
+            foreach (StatRequirement statRequirement in statRequirements)
             {
-                return true;
+                if (statRequirement.MinValue > StatManager.Instance.AllStats[statRequirement.StatName].CalculatedValue)
+                {
+                    return false;
+                }
             }
 
-            return false;
+            return true;
         }
 
         void ChooseOption(int index)
         {
+            if (_currentNode.Choices[index].NextNodeId == -1)
+            {
+                CloseDialogue();
+                return;
+            }
+
             ChangeNode(_currentNode.Choices[index].NextNodeId);
             DisplayNode();
         }
