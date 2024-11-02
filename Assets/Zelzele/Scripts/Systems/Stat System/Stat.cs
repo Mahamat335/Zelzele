@@ -30,13 +30,13 @@ namespace Zelzele.Systems.StatSystem
             }
         }
 
-        public Stat(string statName, string statDescription, float baseValue, float maxValue, float bonusValue)
+        public Stat(string statName, string statDescription, float baseValue, float maxValue, List<Modifier> modifiers)
         {
             StatName = statName;
             StatDescription = statDescription;
             BaseValue = baseValue;
             MaxValue = maxValue;
-            Modifiers = new List<Modifier>();
+            Modifiers = modifiers;
         }
 
         public Stat(string statName, string statDescription, float defaultValue, float maxValue)

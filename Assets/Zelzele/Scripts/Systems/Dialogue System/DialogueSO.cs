@@ -1,5 +1,4 @@
 using UnityEngine;
-using Zelzele.Systems.StatSystem;
 
 namespace Zelzele.Systems.DialogueSystem
 {
@@ -31,13 +30,6 @@ namespace Zelzele.Systems.DialogueSystem
     {
         public string StatName;
         public int MinValue;
-    }
-
-    [System.Serializable]
-    public enum Language
-    {
-        English,
-        Turkish
     }
 }
 

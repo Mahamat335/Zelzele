@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Zelzele
 {
@@ -14,6 +12,5 @@ namespace Zelzele
         {
             return new Faction(_factionName, _aggressionLevel);
         }
-
     }
 }
